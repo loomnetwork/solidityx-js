@@ -6,6 +6,8 @@
 var argv = require("yargs").argv;
 var SolidityXParser = require("./index.js");
 var SolidityXCompiler = require("./compiler.js");
+var fs = require("fs");
+var path = require("path");
 
 var result;
 var outputFile = "";
@@ -14,10 +16,12 @@ try {
 
   if (argv.e) {
     result = SolidityXParser.parse(argv.e || argv.expression);
-
+    originalSrc = argv.e || argv.expression
   } else {
-    result = SolidityXParser.parseFile(argv.f || argv.file || argv._[0]);
-    outputFile = argv._[1]
+  	var filePath = argv.f || argv.file || argv._[0]
+  	originalSrc = fs.readFileSync(path.resolve(filePath), {encoding: "utf8"})
+    result = SolidityXParser.parse(originalSrc);
+    outputFile = argv._[1] || argv.outputfile
   }
   SolidityXCompiler.compileToSolidityToFile(originalSrc, result, outputFile)
 

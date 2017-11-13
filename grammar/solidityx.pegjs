@@ -219,6 +219,7 @@ Keyword
   / ImportToken
   / NewToken
   / PragmaToken
+  / PragmaXToken
   / ReturnToken
   / ReturnsToken
   / ThisToken
@@ -492,12 +493,14 @@ NewToken        = "new"        !IdentifierPart
 NullToken       = "null"       !IdentifierPart
 PrivateToken    = "private"    !IdentifierPart
 PragmaToken     = "pragma"     !IdentifierPart
+PragmaXToken    = "pragmax"    !IdentifierPart
 PublicToken     = "public"     !IdentifierPart
 ReturnToken     = "return"     !IdentifierPart
 ReturnsToken    = "returns"    !IdentifierPart
 SecondsToken    = "seconds"    !IdentifierPart
 SetToken        = "set"        !IdentifierPart
 SolidityToken   = "solidity"   !IdentifierPart
+SolidityXToken  = "solidityx"  !IdentifierPart
 StorageToken    = "storage"    !IdentifierPart
 StructToken     = "struct"     !IdentifierPart
 SuperToken      = "super"      !IdentifierPart
@@ -1109,6 +1112,19 @@ PragmaStatement
     }
   }
 
+//SolidityX specific
+PragmaXStatement
+  = PragmaXToken __ SolidityXToken __ start_version:VersionLiteral __ end_version:(VersionLiteral?) EOS {
+    return {
+      type: "PragmaXStatement",
+      start_version: start_version,
+      end_version: end_version,
+      start: location().start.offset,
+      end: location().end.offset
+    }
+  }
+//----
+
 ImportStatement
   = ImportToken __ from:StringLiteral __ alias:(AsToken __ Identifier)? __ EOS
   {
@@ -1541,6 +1557,7 @@ SourceUnits
 
 SourceUnit
   = PragmaStatement
+  / PragmaXStatement
   / ImportStatement
   / ContractStatement
   / InterfaceStatement

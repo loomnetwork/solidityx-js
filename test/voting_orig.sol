@@ -1,5 +1,6 @@
 //Random sample code, modified to solidityX
 
+pragmax solidityx ^0.1.1;
 pragma solidity ^0.4.11;
 // We have to specify what version of compiler this code will compile with
 
