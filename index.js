@@ -1,7 +1,6 @@
 var PEG = require("pegjs");
 var fs = require("fs");
 var path = require("path");
-var path = require("path");
 
 var builtParsers = {
   "solidityX": require("./build/parser"),
