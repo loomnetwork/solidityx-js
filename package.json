@@ -1,0 +1,31 @@
+{
+  "name": "solidityx-js",
+  "version": "0.4.0",
+  "description": "SolidityX to Solidity compiler for Javascript",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "mkdirp ./build && pegjs -o ./build/parser.js ./grammar/solidityx.pegjs",
+    "test": "mocha --timeout 5000 --reporter spec",
+    "lint": "eslint ."
+  },
+  "bin": {
+    "solidityX": "./main.js"
+  },
+  "contributors": [
+    {
+      "name": "Matthew Campbell",
+      "email": "matt@loomx.io",
+      "url": "https://loomx.io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^2.4.5",
+    "pegjs": "^0.10.0",
+    "yargs": "^4.6.0"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1"
+  }
+}
